@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-acmpca-app
+  labels:
+    app: go-acmpca-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-acmpca-app
+  template:
+    metadata:
+      labels:
+        app: go-acmpca-app
+    spec:
+      serviceAccountName: acmpca-app-sa
+      containers:
+      - name: go-acmpca-app
+        image: your-repo/go-acmpca-app:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: AWS_REGION
+          value: "your-region"
